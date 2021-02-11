@@ -38,21 +38,56 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     document.getElementById("current-" + activePlayer).textContent = roundScore;
   } else {
     //1 буусан тул тоглогчийн ээлжийг энэ хэсэгт солиж өгнө.
-
     //ene toglogchiin eeljindee tsugluulsan onoog 0 bolgono
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = 0;
-
-    //togologchiin eeljiig nogoo toglogch ruu shiljuulne.
-    //хэрэв идэвхтэй тоглогч нь 0 байвал идэвхтэй тоглогчийг 1 болго.
-    //үгүй бол идэвхтэй тогологчийг 0 болго.
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-
-    //ulaan tseg shiljuuleh
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-
-    //шоог түр алга болгоно.
-    diceDom.style.display = "none";
+    switchToNextPlayer();
   }
+});
+
+//Hold тобчны эвент листенэр
+document.querySelector(".btn-hold").addEventListener("click", function () {
+  //ug toglogchiin tsugluulsan eeljnii onoog global onoon deer ni nemj ognoo.
+  scores[activePlayer] = scores[activePlayer] + roundScore;
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+  //ug toglogch hojson esehiig shalgah
+  if (scores[activePlayer] >= 20) {
+    //ylagch gsn textiig nerniihan orond gargana
+    document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.remove("active");
+  } else {
+    switchToNextPlayer();
+  }
+
+  //delgets deer onooog ni oorchilno
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+
+  //eeljiin onoog ni 0 teglej ogno.
+  switchToNextPlayer();
+});
+
+//ene funkts ni togloh eeljiig daraachiin toglogchruu shiljuuldeg
+function switchToNextPlayer() {
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = 0;
+
+  //togologchiin eeljiig nogoo toglogch ruu shiljuulne.
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+
+  //ulaan tseg shiljuuleh
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+
+  //шоог түр алга болгоно.
+  diceDom.style.display = "none";
+}
+
+//shine togloom ehluuleh tovchnii event listner
+document.querySelector(".btn-new").addEventListener("click", function () {
+  alert("clicked");
 });
