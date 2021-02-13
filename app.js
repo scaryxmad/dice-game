@@ -82,7 +82,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
     document.getElementById("score-" + activePlayer).textContent =
       scores[activePlayer];
     //ug toglogch hojson esehiig shalgah
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= 50) {
       //togloomiig duussan tolovt oruulna.
       isNewGame = false;
       //ylagch gsn textiig nerniihan orond gargana
